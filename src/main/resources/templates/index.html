@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>My first site</title>
+		<style type="text/css">
+			form {
+				width: 50%;
+				margin: 100px auto;
+				padding: 2rem;
+				border: 1px solid;
+			}
+		
+			.form__els {
+				display: grid;
+				gap: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<section>
+				<form action="/" method="POST" th:object="${student}">
+					<h1>Add student</h1>
+					<div class="form__els">
+						<input type="text" placeholder="Enter first name" th:field="*{firstName}"/> 
+						<input type="text" placeholder="Enter last name" th:field="*{lastName}"/> 
+						<input type="email" placeholder="Enter email" th:field="*{email}"/> 
+						<input type="date" th:field="*{dob}"/> 
+						<button type="submit">Add</button>
+					</div>
+				</form>
+			</section>
+			<section>
+				<table>
+				  <tr>
+				    <th>First Name</th>
+				    <th>Last Name</th>
+				    <th>Email</th>
+				    <th>Date of Birth</th>
+				    <th>Actions</th>
+				  </tr>
+				  <tr th:each="student : ${students}">
+				  	<td th:text="${student.firstName}"></td>
+				  	<td th:text="${student.lastName}"></td>
+				  	<td th:text="${student.email}"></td>
+				  	<td th:text="${student.dob}"></td>
+				    <td>
+				    	<button>Edit</button>
+				    	<button>Delete</button>
+				    </td>
+				  </tr>
+				</table>
+
+			</section>
+		</main>
+	</body>
+</html>
