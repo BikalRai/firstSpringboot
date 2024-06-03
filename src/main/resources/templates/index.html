@@ -20,6 +20,7 @@
 		<main>
 			<section>
 				<form action="/" method="POST" th:object="${student}">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<h1>Add student</h1>
 					<div class="form__els">
 						<input type="text" placeholder="Enter first name" th:field="*{firstName}"/> 

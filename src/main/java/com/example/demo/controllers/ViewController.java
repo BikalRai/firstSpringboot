@@ -23,7 +23,8 @@ public class ViewController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute(new Student());
-		
+		List<Student> students = studentService.getStudents();
+		model.addAttribute("students", students);
 		
 		return "index";
 	}
