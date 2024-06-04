@@ -24,10 +24,16 @@ public class ApplicationSecurityConfig {
 //			.csrf(AbstractHttpConfigurer::disable)
 			.authorizeHttpRequests(authorizeRequests -> 
 				authorizeRequests
-					.requestMatchers("/").permitAll()
+					.requestMatchers("/").hasRole("ADMIN")
+					.requestMatchers("/api/**").hasAnyRole("USER")
 					.anyRequest()
 					.authenticated()
 			).formLogin();
+			/*.formLogin(form -> form 
+						.loginPage("/login")
+						.permitAll()
+						.defaultSuccessUrl("/home", true)
+					);*/
 		
 //		http.httpBasic(withDefaults());
 		
