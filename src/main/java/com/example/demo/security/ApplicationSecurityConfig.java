@@ -11,11 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class ApplicationSecurityConfig {
 	
 	@Bean
@@ -25,15 +26,29 @@ public class ApplicationSecurityConfig {
 			.authorizeHttpRequests(authorizeRequests -> 
 				authorizeRequests
 					.requestMatchers("/").hasRole("ADMIN")
-					.requestMatchers("/api/**").hasAnyRole("USER")
+					.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN")
+					.requestMatchers("/home").hasAnyRole("USER", "ADMIN")
 					.anyRequest()
 					.authenticated()
-			).formLogin();
-			/*.formLogin(form -> form 
+			)
+//			.formLogin();
+			.formLogin(form -> form 
 						.loginPage("/login")
-						.permitAll()
 						.defaultSuccessUrl("/home", true)
-					);*/
+						.permitAll()
+						
+			
+					)
+			.logout(logout -> logout
+					.logoutUrl("/logout")
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+					.logoutSuccessUrl("/login")
+					.invalidateHttpSession(true)
+					.deleteCookies("JESSIONID")
+					.permitAll()
+					
+					);
+		
 		
 //		http.httpBasic(withDefaults());
 		

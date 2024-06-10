@@ -37,4 +37,14 @@ public class ViewController {
 		return "index";
 	}
 	
+	@GetMapping("/login")
+	public String getLogin() {
+		return "login";
+	}
+	
+	@GetMapping("/home") 
+	public String getHome() {
+		return "home";
+	}
+	
 }
